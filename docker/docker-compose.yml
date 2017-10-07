@@ -1,0 +1,27 @@
+version: "3"
+services:
+    equimetre:
+        container_name: equimetre
+        build: ./
+        ports:
+            - 80:80
+        volumes:
+            - ./..:/var/www/equimetre
+            - ./../../Equiapi:/var/www/equiapi
+
+#    composer-equimetre:
+#        container_name: composer-equimetre
+#        image: composer
+#        command: ["composer", "update"]
+#        volumes:
+#            - ./..:/app
+#
+#    composer-equiapi:
+#        container_name: composer-equiapi
+#        image: composer
+#        command: ["composer", "update"]
+#        volumes:
+#            - ./../../Equiapi:/app
+
+
+
