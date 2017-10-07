@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+
+#    skyflow:
+#        container_name: skyflow
+#        build: ./
+#        ports:
+#            - 80:80
+#        volumes:
+#            - ./..:/var/www/skyflow
+
+#    composer:
+#        container_name: composer
+#        image: composer
+#        command: ["composer", "update"]
+#        volumes:
+#            - ./..:/app
+
+    mariadb:
+        container_name: mariadb
+        image: mariadb
+        volumes:
+            - ./../../Database/skyflow:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        expose:
+          - 3306
+
+    adminer:
+        container_name: adminer
+        image: adminer
+        restart: always
+        environment:
+          ADMINER_DESIGN: "pepa-linha"
+        ports:
+            - 8080:8080
+        links:
+          - mariadb:db
+
+
