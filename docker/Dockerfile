@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine
 
 MAINTAINER Franck Diomandé "fkdiomande@gmail.com"
 
@@ -23,7 +23,7 @@ ENV SERVER_TYPE ${SERVER_TYPE}
 ENV PHP_VERSION ${PHP_VERSION}
 ENV PHP_MODULES ${PHP_MODULES}
 
-RUN apk add --no-cache curl git nodejs nodejs-npm ${SERVER_TYPE} php$PHP_VERSION
+RUN apk add --no-cache ${SERVER_TYPE} php$PHP_VERSION curl git nodejs nodejs-npm
 
 RUN for module in $PHP_MODULES; do apk add --no-cache php$PHP_VERSION-"$module" ; done
 

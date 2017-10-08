@@ -24,4 +24,26 @@ services:
 #            - ./../../Equiapi:/app
 
 
+    mariadb:
+        container_name: mariadb
+        image: mariadb
+        volumes:
+            - ./../../Database/equimetre:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        expose:
+          - 3306
+
+    adminer:
+        container_name: adminer
+        image: adminer
+        restart: always
+        environment:
+          ADMINER_DESIGN: "pepa-linha"
+        ports:
+            - 8080:8080
+        links:
+          - mariadb:db
+
+
 
