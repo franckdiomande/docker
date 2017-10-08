@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine
 
 MAINTAINER Franck Diomandé "fkdiomande@gmail.com"
 
