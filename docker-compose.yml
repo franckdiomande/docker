@@ -6,6 +6,6 @@ services:
         ports:
             - 80:80
         volumes:
-            - .././:/var/www/myapp
+            - ./..:/var/www/myapp
 
 
