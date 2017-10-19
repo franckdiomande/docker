@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:latest
 
 MAINTAINER Franck Diomandé "fkdiomande@gmail.com"
 
@@ -9,7 +9,7 @@ ARG DIRECTORY_INDEX=index.php
 ARG DOCUMENT_ROOT=/var/www/${APPLICATION_NAME}/web
 ARG SERVER_TYPE=apache2
 ARG PHP_VERSION=7
-ARG PHP_MODULES="apache2"
+ARG PHP_MODULES="apache2 json"
 
 ENV APPLICATION_NAME ${APPLICATION_NAME}
 ENV SERVER_NAME ${SERVER_NAME}
