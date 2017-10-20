@@ -20,7 +20,7 @@ ENV SERVER_TYPE ${SERVER_TYPE}
 ENV PHP_VERSION ${PHP_VERSION}
 ENV PHP_MODULES ${PHP_MODULES}
 
-RUN apk add --no-cache ${SERVER_TYPE} php$PHP_VERSION nodejs nodejs-npm && npm i -g gulp
+RUN apk add --no-cache ${SERVER_TYPE} php$PHP_VERSION nodejs nodejs-npm ruby && npm i -g gulp && gem install compass
 
 RUN for module in $PHP_MODULES; do apk add --no-cache php$PHP_VERSION-"$module" ; done
 
