@@ -20,9 +20,18 @@ ENV SERVER_TYPE ${SERVER_TYPE}
 ENV PHP_VERSION ${PHP_VERSION}
 ENV PHP_MODULES ${PHP_MODULES}
 
-RUN apk add --no-cache ${SERVER_TYPE} php$PHP_VERSION nodejs nodejs-npm ruby && npm i -g gulp && gem install compass
+RUN apk update && apk upgrade
 
-RUN for module in $PHP_MODULES; do apk add --no-cache php$PHP_VERSION-"$module" ; done
+RUN apk add ${SERVER_TYPE} php$PHP_VERSION
+RUN for module in $PHP_MODULES; do apk add php$PHP_VERSION-"$module" ; done
+
+# Node npm and modules
+RUN apk add nodejs nodejs-npm && npm i -g gulp
+
+# Ruby compass
+RUN apk add ruby-dev build-base libffi-dev ruby && \
+echo "gem: --no-rdoc --no-ri" > /etc/gemrc && \
+gem install compass
 
 RUN rm -rf /tmp/* && rm -rf /var/cache/apk/*
 
