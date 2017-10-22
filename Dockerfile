@@ -9,7 +9,7 @@ ARG DIRECTORY_INDEX=index.php
 ARG DOCUMENT_ROOT=/var/www/${APPLICATION_NAME}/web
 ARG SERVER_TYPE=apache2
 ARG PHP_VERSION=7
-ARG PHP_MODULES="apache2 json"
+ARG PHP_MODULES="apache2 json phar tokenizer simplexml xml"
 
 ENV APPLICATION_NAME ${APPLICATION_NAME}
 ENV SERVER_NAME ${SERVER_NAME}
@@ -33,11 +33,19 @@ RUN apk add ruby-dev build-base libffi-dev ruby && \
 echo "gem: --no-rdoc --no-ri" > /etc/gemrc && \
 gem install compass
 
+# Php code sniffer
+RUN apk add curl && \
+curl https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o /usr/bin/phpcs && \
+chmod +x /usr/bin/phpcs && \
+curl https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar -o /usr/bin/phpcbf && \
+chmod +x /usr/bin/phpcbf && \
+apk del curl
+
 RUN rm -rf /tmp/* && rm -rf /var/cache/apk/*
 
-RUN mkdir -p /run/apache2
+RUN mkdir -p /run/$SERVER_TYPE
 
-COPY ./conf/apache2 /etc/apache2
+COPY ./conf/$SERVER_TYPE /etc/$SERVER_TYPE
 COPY ./conf/php$PHP_VERSION /etc/php$PHP_VERSION
 
 EXPOSE 80
