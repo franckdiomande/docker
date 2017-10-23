@@ -3,7 +3,7 @@ FROM alpine:latest
 MAINTAINER Franck Diomandé "fkdiomande@gmail.com"
 
 ARG APPLICATION_NAME=skyflowjs
-ARG SERVER_NAME=js.skyflow.io
+ARG SERVER_NAME=dev.skyflowjs.io
 ARG SERVER_ADMIN=admin@skyflow.io
 ARG DIRECTORY_INDEX=index.php
 ARG DOCUMENT_ROOT=/var/www/${APPLICATION_NAME}
