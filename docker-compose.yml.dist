@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+
+    skyflowcss:
+        container_name: skyflowcss
+        build: ./
+        ports:
+            - 80:80
+        volumes:
+            - ./..:/var/www/skyflowcss
