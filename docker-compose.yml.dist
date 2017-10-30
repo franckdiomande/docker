@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+
+    equimetre:
+        container_name: equimetre
+        build: ./
+        ports:
+            - 80:80
+        volumes:
+            - ./..:/var/www/equimetre
+            - ./../../Equiapi:/var/www/equiapi
+            - ./conf/php7/php.ini:/etc/php7/php.ini
+
+    composer_equimetre:
+        container_name: composer_equimetre
+        image: composer
+        command: ["composer", "update"]
+        volumes:
+            - ./..:/app
+
+    composer_equiapi:
+        container_name: composer_equiapi
+        image: composer
+        command: ["composer", "update"]
+        volumes:
+            - ./../../Equiapi:/app
+
+    mariadb:
+        container_name: mariadb
+        image: mariadb
+        restart: always
+        volumes:
+            - ./../../Database/equimetre:/var/lib/mysql
+            - ./conf/mariadb/mysql/conf.d:/etc/mysql/conf.d
+#            - ./conf/mariadb/mysql/my.cnf:/etc/mysql/my.cnf
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+
+    phpmyadmin:
+        container_name: phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        environment:
+          - PMA_USER=root
+          - PMA_PASSWORD=root
+        ports:
+            - 8080:80
+        links:
+          - mariadb:db
+
